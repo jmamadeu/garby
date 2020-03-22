@@ -5,7 +5,6 @@
 <p align="center">
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-licença">Licença</a>
 </p>
@@ -21,15 +20,18 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 ## 💻 Projeto
 
 O Projecto faz parte da saga: <strong> Today I learned</strong>
+
+<p>
 O Garby, é uma API restfull para usuários criarem projectos e conectar eles com tarefas,
 é um projecto simples, feito para consolidar os meus estudos sobre api restfull.
+</p>
 
 Bibliotecas Usadas:
 
-- [express]
-- [nodemailer]
-- [handlebars]
-- [jsonwebtoken]
+- [express]()
+- [nodemailer]()
+- [handlebars]()
+- [jsonwebtoken]()
 
 ## 🤔 Como contribuir
 
