@@ -32,6 +32,7 @@ Bibliotecas Usadas:
 - [nodemailer]()
 - [handlebars]()
 - [jsonwebtoken]()
+- [mongoose]()
 
 ## 🤔 Como contribuir
 
