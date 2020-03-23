@@ -1,8 +1,15 @@
-const express = require("express");
+// import 'dotenv/config';
+// import express from 'express';
 
-const routes = require("./app/routes");
+// import routes from './app/routes';
+// import database from './database';
+require('dotenv/config');
 
-const database = require("./database");
+const express = require('express');
+
+const routes = require('./app/routes');
+
+require('./libs/Mongoose');
 
 const app = express();
 
@@ -10,5 +17,5 @@ app.use(express.json());
 app.use(routes);
 
 app.listen(3333, () => {
-  console.log("server is running");
+  console.log('server is running');
 });

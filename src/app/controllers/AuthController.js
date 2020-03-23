@@ -1,10 +1,10 @@
-const bcrip = require("bcryptjs");
-const crypto = require("crypto");
+const bcrip = require('bcryptjs');
+const crypto = require('crypto');
 
-const User = require("../models/User");
+const User = require('../models/schemas/UserSchema');
 
-const generateToken = require("../utils/generateToken");
-const mailer = require("../../modules/mailer");
+const generateToken = require('../utils/generateToken');
+const Mail = require('../../libs/Mail');
 
 module.exports = {
   async resetPassword(req, res) {
@@ -12,20 +12,20 @@ module.exports = {
 
     try {
       let user = await User.findOne({ email }).select(
-        "+passwordResetToken passwordResetExpires"
+        '+passwordResetToken passwordResetExpires'
       );
 
       if (!user) {
         return res.status(400).json({
           success: false,
-          errors: ["Usuário não encontrado"]
+          errors: ['Usuário não encontrado']
         });
       }
 
       if (token !== user.passwordResetToken) {
         return res.status(400).json({
           success: false,
-          errors: ["Token inválido"]
+          errors: ['Token inválido']
         });
       }
 
@@ -34,7 +34,7 @@ module.exports = {
       if (now > user.passwordResetExpires) {
         return res.status(400).json({
           success: false,
-          errors: ["Token expirado, gere um novo"]
+          errors: ['Token expirado, gere um novo']
         });
       }
 
@@ -45,7 +45,7 @@ module.exports = {
       return res.json({});
     } catch (err) {
       return res.status(400).json({
-        errors: ["Erro na recuperação da password"]
+        errors: ['Erro na recuperação da password']
       });
     }
   },
@@ -59,11 +59,11 @@ module.exports = {
       if (!user) {
         return res.status(404).json({
           success: false,
-          errors: ["Usuário não encontrado"]
+          errors: ['Usuário não encontrado']
         });
       }
 
-      let token = crypto.randomBytes(20).toString("hex");
+      let token = crypto.randomBytes(20).toString('hex');
 
       const now = new Date();
       now.setHours(now.getHours() + 1);
@@ -73,17 +73,18 @@ module.exports = {
         passwordResetExpires: now
       });
 
-      mailer.sendMail(
+      Mail.sendMail(
         {
-          to: email,
-          from: "jmamadeu@gmail.com",
-          template: "auth/forgot_password",
+          from: 'Garby <garby@garby.com>',
+          to: `${user.name} <${email}>`,
+          template: 'auth/forgot_password',
           context: { token }
         },
         err => {
           if (err) {
+            console.log(err);
             return res.status(400).json({
-              errors: ["Erro, tenta novamente "]
+              errors: ['Erro no envio do email, tenta novamente ']
             });
           }
 
@@ -91,9 +92,10 @@ module.exports = {
         }
       );
     } catch (err) {
+      console.log(err);
       return res.status(400).json({
         success: false,
-        errors: ["Erro no processo, tente novamente"]
+        errors: ['Erro no processo, tente novamente']
       });
     }
   },
@@ -105,7 +107,7 @@ module.exports = {
     if (!user) {
       return res.status(404).json({
         success: false,
-        errors: ["Usuário não encontrado"]
+        errors: ['Usuário não encontrado']
       });
     }
 
@@ -114,7 +116,7 @@ module.exports = {
     if (!invalidPassword) {
       return res.status(400).json({
         success: false,
-        errors: ["Palavra passe inválida"]
+        errors: ['Palavra passe inválida']
       });
     }
 
